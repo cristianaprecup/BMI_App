@@ -1,6 +1,7 @@
 package com.example.lab2_dmd
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -55,14 +56,19 @@ class MainActivity : AppCompatActivity() {
 
         val bmi = weight / (height * height)
 
-        val bmiLabel = when {
-            bmi < 18.5 -> "Underweight"
+        val bmiText = when {
+            bmi < 18.5 -> "You are underweight"
             bmi in 18.5..24.9 -> "You are on the right path!"
-            bmi in 25.0..29.9 -> "Overweight"
-            else -> "Obese"
+            bmi in 25.0..29.9 -> "You are overweight"
+            else -> "You are obese"
         }
 
-        val result = String.format("%.1f", bmi) + "    " + bmiLabel
-        tvResult.text = result
+
+        val result = String.format("%.1f", bmi)
+
+        val intent = Intent(this, SecondActivity::class.java)
+        intent.putExtra("result", result)
+        intent.putExtra("result2", bmiText )
+        startActivity(intent)
     }
 }
